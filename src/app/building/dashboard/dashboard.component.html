@@ -1,0 +1,72 @@
+<div class="container" fxFill>
+  <div *ngIf="display" fxLayoutAlign="center center" fxLayout='column' fxFill>
+    <div fxFlex="50" fxLayoutAlign="center center" fxLayout='column'>
+      <div fxLayout='row'>
+        <table mat-table #buildingTable (matSortChange)="buildingSort($event)" [dataSource]="dataSource" matSort
+          class="w-100">
+          <ng-container matColumnDef="superficie">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Superficie </th>
+            <td mat-cell *matCellDef="let element"> {{element.superficie}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="energie">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Classe énergétique </th>
+            <td mat-cell *matCellDef="let element"> {{ element.energie }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nbDePieces">
+            <th mat-header-cell *matHeaderCellDef> Nombre de pièces </th>
+            <td mat-cell *matCellDef="let element"> {{element.nbDePieces}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ville">
+            <th mat-header-cell *matHeaderCellDef> Ville </th>
+            <td mat-cell *matCellDef="let element"> {{element.ville.nom}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cp">
+            <th mat-header-cell *matHeaderCellDef> Code postal </th>
+            <td mat-cell *matCellDef="let element"> {{element.ville.codePostal}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="owner">
+            <th mat-header-cell *matHeaderCellDef> Propriétaire </th>
+            <td mat-cell *matCellDef="let element"> {{element.proprietaire.denomination}} </td>
+          </ng-container>
+
+          <!-- Link Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Détail </th>
+            <td mat-cell *matCellDef="let element"><a [routerLink]="['/building/info', element.appartementId]"> -></a></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        </table>
+      </div>
+      <div fxLayout='row' class="w-100">
+        <div fxFlex="100">
+          <mat-paginator #paginator [length]="max" [pageSize]="5" (page)="onChangePage($event)">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+    <div fxLayout='row' fxFlex="50">
+      <div fxLayout='column'>
+        <h3 ngClass="primary-color text-center font-weight-bold">Diagramme par type de bâtiment</h3>
+        <app-doughnut-chart [doughnutChartLabels]="labelsDoughNutChart" [doughnutChartData]="dataDoughNutChart">
+        </app-doughnut-chart>
+      </div>
+      <div fxLayout='column'>
+        <h3 ngClass="primary-color text-center font-weight-bold">Diagramme des surfaces moyennes d'appartement par type</h3>
+        <app-linebar-chart [LineBarChartData]="dataLineBarChart" [LineBarChartLabels]="labelsLineBarChart">
+        </app-linebar-chart>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="row p-4">
+  <div class="col-12 col-md-6">
+    <div class="row">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label for="poids">Date de mise en circulation :</mat-label>
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="col-12 d-flex">
+    <!--<button *ngIf="addFrom === false"
+            class="ms-auto"
+            mat-raised-button
+            [routerLink]="['/buildings/info', building.id]"
+            color='accent'>Retour au détail</button>-->
+    <button *ngIf="addFrom === false" mat-raised-button (click)="updateBuilding()" class="ms-3" color='accent'>Modifier
+      véhivule</button>
+    <button *ngIf="addFrom" mat-raised-button (click)="addBuilding()" class="ms-auto" color='accent'>Ajouter
+      véhivule</button>
+  </div>
+</div>

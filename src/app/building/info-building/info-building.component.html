@@ -1,0 +1,28 @@
+<div class="container" fxFill>
+  <div *ngIf="display" fxLayoutAlign="center center" fxLayout='column' fxFill>
+    <mat-card>
+      <mat-list>
+        <mat-list-item>Superficie :
+          <mat-chip-list>
+            <mat-chip color="primary" selected [style.margin-left]="'1rem'">{{ building.superficie }} m²</mat-chip>
+          </mat-chip-list>
+        </mat-list-item>
+        <mat-list-item>Classe énergétique :
+          <mat-chip-list>
+            <mat-chip color="accent" selected [style.margin-left]="'1rem'">{{ building.energie }}</mat-chip>
+          </mat-chip-list>
+        </mat-list-item>
+        <mat-list-item>Type :
+          <mat-chip-list>
+            <mat-chip [style.margin-left]="'1rem'">{{ building.type }}</mat-chip>
+          </mat-chip-list>
+        </mat-list-item>
+        <mat-list-item>Nombre de pièces :
+          <mat-chip-list>
+            <mat-chip color="warn" selected [style.margin-left]="'1rem'">{{ building.nbDePieces }}</mat-chip>
+          </mat-chip-list>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+  </div>
+</div>
