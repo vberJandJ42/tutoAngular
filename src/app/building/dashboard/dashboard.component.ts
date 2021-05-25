@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import Building from '../../interfaces/building';
 import BTypeData from '../../interfaces/bTypeData';
 import Query from '../../interfaces/query';
-
 import { ApiService } from '../../services/api.service';
+
 import { PageEvent } from '@angular/material/paginator';
 import { Sort} from '@angular/material/sort';
 import { Label } from 'ng2-charts';
@@ -18,10 +18,23 @@ export class DashboardComponent implements OnInit {
   display = false;
   max!:number;
   dataSource!: Building[];
-  buildings: Building[] = [];
+  asc = true;
+  sortBy = 'Superficie';
   currentPage = 0;
   itemsPerPage = 5;
-  columnsToDisplay = ['superficie', 'energie', 'type', 'nbDePieces', 'ville', 'cp', 'owner', 'id'];
+  columnsToDisplay = ['superficie', 'energie', 'type', 'nbDePieces', 'ville', 'cp', 'owner', 'edit', 'detail'];
+  /*columnDefs = [
+    { field: 'superficie'},
+    { field: 'energie'},
+    { field: 'type'},
+    { field: 'nbDePieces'},
+    { field: 'ville'},
+    { field: 'cp'},
+    { field: 'owner'},
+    { field: 'edit'},
+    { field: 'detail'}
+  ];*/
+
 
   // Données pour un graphique en donut selon les types d'appartements'
   dataDoughNutChart!: [number[]];
@@ -35,25 +48,34 @@ export class DashboardComponent implements OnInit {
   constructor( private ApiService: ApiService) {}
 
   ngOnInit(): void {
+    this.countBuildings();
     this.getBuildings();
   }
 
-  getBuildings(): void {
-    this.ApiService.countBuildings()
-    .subscribe(result => {
-      this.max = result;
-      console.log(this.max);
-    });
-    const query:Query = {
+  get query(): Query {
+    return {
+      asc : this.asc,
+      sortBy: this.sortBy,
       pageSize: this.itemsPerPage,
       currentIndex: this.currentPage * this.itemsPerPage
     }
-    this.ApiService.getBuildings(query)
+  }
+
+  countBuildings(): void {
+    this.ApiService.countBuildings()
+    .subscribe(result => {
+      this.max = result;
+    });
+  }
+
+  getBuildings(): void {
+    console.log(this.query)
+    this.ApiService.getBuildings(this.query)
       .subscribe(result => {
-        this.buildings = result;
         this.dataSource = result;
-        this.display = true;
-        // this.calculateDataToDisplay();
+        if (this.display === false) {
+          this.display = true;
+        }
         // Calcul des données pour les graphiques
         /*const dataType: BTypeData = {};
         const surfByType: BTypeData = {};
@@ -110,44 +132,15 @@ export class DashboardComponent implements OnInit {
   }*/
 
   onChangePage(pe: PageEvent): void  {
-    console.log(pe.pageIndex);
     if (pe.pageIndex >= 0) {
       this.currentPage = pe.pageIndex;
-      // this.calculateDataToDisplay();
-      const query:Query = {
-        pageSize: this.itemsPerPage,
-        currentIndex: this.currentPage * this.itemsPerPage
-      }
-      console.log(query);
-      this.ApiService.getBuildings(query)
-      .subscribe(result => {
-        this.dataSource = result;
-        console.log(this.dataSource);
-      });
+      this.getBuildings();
     }
   }
 
   buildingSort(sort: Sort): void  {
-    console.log(sort);
-    /*this.buildings.sort((a, b) => {
-      let c;
-      let d;
-      if (sort.active === 'miseEnCirculation') {
-        c = new Date(a[sort.active]).getTime();
-        d = new Date(b[sort.active]).getTime();
-      } else {
-        c = a[sort.active].toString();
-        d = b[sort.active].toString();
-      }
-      switch (sort.direction) {
-        case 'desc':
-          return c === d ? 0 : c < d ? -1 : 1;
-          break;
-        case 'asc':
-          return c === d ? 0 : d < c ? -1 : 1;
-          break;
-      }
-    });
-    this.calculateDataToDisplay();*/
+    this.sortBy = sort.active;
+    this.asc = (sort.direction === 'asc');
+    this.getBuildings();
   }
 }

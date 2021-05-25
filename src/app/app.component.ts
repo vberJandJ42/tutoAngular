@@ -14,5 +14,8 @@ export class AppComponent {
     // Note that we provide the icon here as a string literal here due to a limitation in
     // Stackblitz. If you want to provide the icon from a URL, you can use:
     iconRegistry.addSvgIcon('thumbs-up', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/thumbUp.svg'));
+    iconRegistry.addSvgIcon('trash', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/trash.svg'));
+    iconRegistry.addSvgIcon('pen', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/pen.svg'));
+    iconRegistry.addSvgIcon('eye', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/eye.svg'));
   }
 }

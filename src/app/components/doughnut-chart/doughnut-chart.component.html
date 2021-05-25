@@ -1,7 +1,7 @@
 <div>
   <div>
     <div>
-      <canvas *ngIf="doughnutChartData.length > 0"
+      <canvas *ngIf="doughnutChartData !== undefined && doughnutChartData.length > 0"
               baseChart
               [data]="doughnutChartData"
               [labels]="doughnutChartLabels"

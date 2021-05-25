@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";
 import { AngularMaterialModule } from './angular-material.module';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './building/dashboard/dashboard.component';
@@ -14,11 +15,11 @@ import { EditBuildingComponent } from './building/edit-building/edit-building.co
 import { InfoBuildingComponent } from './building/info-building/info-building.component';
 import { BuildingFormComponent } from './components/building-form/building-form.component';
 import { LoginComponent } from './login/login.component';
-import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 import { LinebarChartComponent } from './components/linebar-chart/linebar-chart.component';
-import { ChartsModule } from 'ng2-charts';
+
 
 
 

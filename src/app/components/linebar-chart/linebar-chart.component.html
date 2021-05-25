@@ -2,7 +2,7 @@
   <div>
     <div style="display: block">
       <canvas baseChart
-              *ngIf="LineBarChartLabels.length > 0"
+              *ngIf="LineBarChartData !== undefined && LineBarChartLabels.length > 0"
               [datasets]="LineBarChartData"
               [labels]="LineBarChartLabels"
               [chartType]="LineBarChartType"
