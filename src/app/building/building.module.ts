@@ -7,6 +7,8 @@ import { InfoBuildingComponent } from './info-building/info-building.component';
 import { AgGridModule } from 'ag-grid-angular';
 import  {ChartsModule } from 'ng2-charts';
 import { AngularMaterialModule } from '../angular-material.module';
+import { LinebarChartComponent } from '../components/linebar-chart/linebar-chart.component';
+import { DoughnutChartComponent } from '../components/doughnut-chart/doughnut-chart.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { AngularMaterialModule } from '../angular-material.module';
     DashboardComponent,
     EditBuildingComponent,
     InfoBuildingComponent,
+    LinebarChartComponent,
+    DoughnutChartComponent
   ],
   imports: [
     CommonModule,

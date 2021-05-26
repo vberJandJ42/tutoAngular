@@ -34,7 +34,7 @@ export class ApiService {
 
   getBuildings():Observable<Building[]> {
     // to replace with http request
-    return this.http.get<Building[]>(`${this.apiUrl}/appartements/list/detail`, httpOptions);
+    return this.http.get<Building[]>(`${this.apiUrl}/appartements`, httpOptions);
   }
 
   getBuilding(id: string|null):Observable<Building> {
