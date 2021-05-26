@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-import City from '../../interfaces/city';
+import BTypeData from '../../interfaces/bTypeData';
 import Building from '../../interfaces/building';
 
 import { ApiService } from '../../services/api.service';
-import { PageEvent } from '@angular/material/paginator';
-import { Sort} from '@angular/material/sort';
 import { Label } from 'ng2-charts';
-import { ColDef } from 'ag-grid-community';
 
 @Component({
   selector: 'app-dashboard',
@@ -46,6 +42,37 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = this.ApiService.getBuildings();
+    this.calculateChartData();
+  }
+
+  calculateChartData(): void {
+    const dataType: BTypeData = {};
+        const surfByType: BTypeData = {};
+        for (const item of Object.values(this.dataSource)) {
+          if (dataType[item.type] == undefined) {
+            dataType[item.type] = 0;
+          } else {
+            dataType[item.type]++;
+          }
+
+          if (surfByType[item.type] == undefined) {
+            surfByType[item.type] = 0;
+          } else {
+            surfByType[item.type] += item.superficie;
+          }
+        }
+        const dataSet: object[] = [];
+
+        Object.keys(surfByType).forEach(key => {
+          const moy = Math.round((surfByType[key] / dataType[key])*100)/100;
+          dataSet.push({data: moy, label: key});
+          this.labelsLineBarChart.push(key);
+        });
+
+        this.dataLineBarChart = dataSet;
+
+        this.dataDoughNutChart = [Object.values(dataType)];
+        this.labelsDoughNutChart = Object.keys(dataType);
   }
 
 }
